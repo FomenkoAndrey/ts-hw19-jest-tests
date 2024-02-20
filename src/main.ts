@@ -59,33 +59,51 @@ function createUser(name: string, age: number, isActive: boolean): User {
 /*
  * #3
  *
- * Задача: Розробити функцію `createPerson`, яка створює об'єкт особи з заданими властивостями.
+ * Задача: Розробити функцію getOrderStatus, яка приймає статус замовлення як параметр і повертає рядок з описом статусу.
  *
- * Мета: Створити універсальну функцію, що дозволяє ефективно генерувати об'єкти особи з певними характеристиками для подальшого використання у програмі.
+ * Мета: Створення функції, здатної ідентифікувати статус замовлення і надавати користувачеві зрозуміле пояснення щодо поточного стану замовлення.
  *
  * Вимоги до реалізації:
- * 1. Функція має приймати три параметри: `name` (рядок), `age` (число), `isActive` (булеве значення) і явно повертати об'єкт, що відповідає інтерфейсу `PersonInterface`.
- * 2. Інтерфейс `PersonInterface` має описувати структуру об'єкта особи з властивостями `name`, `age`, і `isActive`.
- * 3. Функція має забезпечувати створення об'єкта з коректними типами властивостей відповідно до `PersonInterface`.
- * 4. Тип повернення функції має бути явно вказаний як `PersonInterface`, що забезпечує відповідність повернутого об'єкта визначеному інтерфейсу.
+ * 1. Функція має використовувати enum OrderStatus для визначення можливих статусів замовлення.
+ * 2. Використати enum `OrderStatus` зі статусами:
+ * -  'Pending' -> 'Замовлення очікує на обробку',
+ * -  'Shipped' -> 'Замовлення було відправлено',
+ * -  'Delivered' -> 'Замовлення доставлено',
+ * -  'Cancelled' -> 'Замовлення скасовано'
+ * -  прокинути помилку з текстом 'Невідомий статус замовлення' в будь-якому іншому випадку.
+ * 3. Функція має приймати один параметр типу OrderStatus і повертати рядок з описом статусу.
+ * 4. Необхідно правильно обробити кожен статус замовлення, повертаючи відповідне повідомлення.
+ * 5. У коді має бути присутній enum OrderStatus з необхідними статусами.
+ * 6. Параметри функції та її тип повернення мають бути явно типізовані.
  *
  */
 
-interface PersonInterface {
-  name: string
-  age: number
-  isActive: boolean
+enum OrderStatus {
+  Pending = 'Pending',
+  Shipped = 'Shipped',
+  Delivered = 'Delivered',
+  Cancelled = 'Cancelled'
 }
 
-function createPerson(name: string, age: number, isActive: boolean): PersonInterface {
-  return {
-    name,
-    age,
-    isActive
+function getOrderStatus(status: OrderStatus): string {
+  switch (status) {
+    case OrderStatus.Pending:
+      return 'Замовлення очікує на обробку'
+    case OrderStatus.Shipped:
+      return 'Замовлення було відправлено'
+    case OrderStatus.Delivered:
+      return 'Замовлення доставлено'
+    case OrderStatus.Cancelled:
+      return 'Замовлення скасовано'
+    default:
+      throw new Error('Невідомий статус замовлення')
   }
 }
 
-// const newPerson = createPerson('Олександр', 31, false)
-// console.log(newPerson)
+// Приклад виклику функції
+console.log(getOrderStatus(OrderStatus.Pending))
+console.log(getOrderStatus(OrderStatus.Shipped))
+console.log(getOrderStatus(OrderStatus.Delivered))
+console.log(getOrderStatus(OrderStatus.Cancelled))
 
-export { sumArray, createUser, createPerson }
+export { sumArray, createUser, getOrderStatus, OrderStatus }
