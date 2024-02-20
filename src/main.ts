@@ -45,7 +45,6 @@ type User = {
   isActive: boolean
 }
 
-// Функція для генерації об'єкта типу User
 function createUser(name: string, age: number, isActive: boolean): User {
   return {
     name,
