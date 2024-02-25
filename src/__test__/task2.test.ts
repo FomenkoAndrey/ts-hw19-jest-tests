@@ -2,6 +2,16 @@ import { code } from './prepareTestEnvironment'
 import { createUser } from '../main'
 
 describe('createUser function', () => {
+  test('should return a User object with isActive defaulting to true when not provided', () => {
+    const name = 'Марія'
+    const age = 28
+
+    const result = createUser(name, age)
+
+    // Перевіряємо, що isActive за замовчуванням встановлено в true
+    expect(result).toEqual({ name, age, isActive: true })
+  })
+
   test('should return a User object with correct properties', () => {
     const name = 'Анна'
     const age = 25
@@ -50,11 +60,11 @@ describe('createUser function', () => {
 
   test('Checks for the correct typing in function parameters', () => {
     const functionParamRegex =
-      /function\s+createUser\(\s*name\s*:\s*string\s*,\s*age\s*:\s*number\s*,\s*isActive\s*:\s*boolean\s*\)\s*:\s*User/
+      /function\s+createUser\(\s*name\s*:\s*string\s*,\s*age\s*:\s*number\s*,\s*isActive\s*:\s*boolean(\s*=\s*true)?\s*\)\s*:\s*User/
     const match = functionParamRegex.test(code)
     if (!match) {
       throw new Error(
-        `Function 'createUser' parameters typing does not match the expected format. Expected parameters to be '(name: string, age: number, isActive: boolean): User'.`
+        `Function 'createUser' parameters typing does not match the expected format. Expected parameters to be '(name: string, age: number, isActive: boolean = true): User'.`
       )
     }
   })

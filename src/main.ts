@@ -45,7 +45,7 @@ type User = {
   isActive: boolean
 }
 
-function createUser(name: string, age: number, isActive: boolean): User {
+function createUser(name: string, age: number, isActive: boolean = true): User {
   return {
     name,
     age,
