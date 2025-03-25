@@ -25,4 +25,9 @@ describe('getOrderStatus function', () => {
       throw new Error('Function getOrderStatus does not have correct parameter typing or return type.')
     }
   })
+
+  // Тест для перевірки викидання помилки
+  test('throws an error for unknown order status', () => {
+    expect(() => getOrderStatus('Unknown' as any)).toThrow('Невідомий статус замовлення')
+  })
 })
