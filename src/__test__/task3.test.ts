@@ -1,8 +1,9 @@
+import { describe, it, expect } from 'vitest'
 import { getOrderStatus, OrderStatus } from '../main'
 import { code } from './prepareTestEnvironment'
 
 describe('getOrderStatus function', () => {
-  test('correctly returns status messages', () => {
+  it('correctly returns status messages', () => {
     expect(getOrderStatus(OrderStatus.Pending)).toEqual('Замовлення очікує на обробку')
     expect(getOrderStatus(OrderStatus.Shipped)).toEqual('Замовлення було відправлено')
     expect(getOrderStatus(OrderStatus.Delivered)).toEqual('Замовлення доставлено')
@@ -10,7 +11,7 @@ describe('getOrderStatus function', () => {
   })
 
   // Тест на перевірку присутності enum OrderStatus та коректної типізації функції
-  test('Checks for the presence of OrderStatus enum and correct typing in function parameters', () => {
+  it('Checks for the presence of OrderStatus enum and correct typing in function parameters', () => {
     const enumRegex = /enum\s+OrderStatus\s*{[\s\S]*?}/
     const functionParamRegex = /function\s+getOrderStatus\(status:\s*OrderStatus\):\s*string/
 
@@ -27,7 +28,7 @@ describe('getOrderStatus function', () => {
   })
 
   // Тест для перевірки викидання помилки
-  test('throws an error for unknown order status', () => {
+  it('throws an error for unknown order status', () => {
     expect(() => getOrderStatus('Unknown' as any)).toThrow('Невідомий статус замовлення')
   })
 })
